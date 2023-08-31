@@ -27,4 +27,4 @@ async function connectDB(){
 
 connectDB()
 
-module.exports =sql
+module.exports = sql
