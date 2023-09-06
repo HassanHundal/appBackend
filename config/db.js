@@ -8,7 +8,7 @@ const config = {
     password:process.env.PSV_PWD ,
     server:process.env.PSV_SERVER,
     database:process.env.PSV_DB,
-    port:4414,
+    port:1434,
    
    options: {
         trustedconnection: true,

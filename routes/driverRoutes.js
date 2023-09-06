@@ -12,6 +12,14 @@ router.get('/getDriver/:Dvr',async(req,res)=>{
     }
 } );
 
+router.get('/getDriver',async(req,res)=>{
+   
+     const result = await db.query(`select * from DriverInfo`)
+     if(result){
+ 
+         res.status(200).json(result.recordset)
+     }
+ } );
 //addd driver to database 
 module.exports = router
 
