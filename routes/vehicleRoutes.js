@@ -10,7 +10,7 @@ router.get('/getPsv/:pre/:no/:model',async(req,res)=>{
   
  
     const result = await db.query(`select * from  VehicleInfo  where PrefixRegNo = '${psvPre}' and RegNo = '${psvNo}' and VehicleModel = ${psvModel} `)
-    console.log(psvPre,psvNo,psvModel)
+
     if(result){
 
         res.status(200).json(result.recordset)
