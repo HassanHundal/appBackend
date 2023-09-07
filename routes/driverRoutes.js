@@ -105,7 +105,7 @@ router.post("/addDriver", (req, res) => {
 
 //==================Update driver to database
 
-router.put('/updateDriver/:cnic',(req, res) => {
+router.patch('/updateDriver/:cnic',(req, res) => {
   const cnic = req.params.cnic
   const data = req.body;
   
