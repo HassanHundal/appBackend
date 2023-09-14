@@ -5,16 +5,16 @@ const router = express.Router();
 //get specific driver based on cnic
 router.get('/getDriver/:Dvr',async(req,res)=>{
    const dvr = req.params.Dvr
-    const result = await db.query(`select * from DriverInfo where CNIC = '${dvr}' `)
+    const result = await db.query(`select * from psvDriver where CNIC = '${dvr}' `)
     if(result){
 
         res.status(200).json(result.recordset)
     }
 } );
 
-router.get('/getDriver',async(req,res)=>{
+router.get('/getallDriver',async(req,res)=>{
    
-     const result = await db.query(`select * from DriverInfo`)
+     const result = await db.query(`select * from psvDriver`)
      if(result){
  
          res.status(200).json(result.recordset)
@@ -28,66 +28,44 @@ router.post("/addDriver", (req, res) => {
     const data = req.body;
   
     // SQL query to insert the data into the database
-    const qry = `INSERT INTO DriverInfo (
-              CNIC,
-              DriverName,
-              FatherName,
-              Age,
-              Address,
-      EyeSight,
-      Disability,
-      Company,
-      CellNo,
-      LicenseType,
-      LicenseNo,
-      IssueAuth,
-      IssueDate,
-      LicenseVerify,
-      DriverPic,
-      AddedBY,
-      AddedON,
-      LicenseExpiry,
-      Status,
-      KM,
-      Side,
-      EditedBy,
-      EditedOn,
-      EditedLat,
-      EditedLon,
-      BanReason,
-      AddedZone,
-      AddedSector,
-      AddedBeat
+    const qry = `INSERT INTO psvDriver (
+      cnic,
+      driverName,
+      fatherName,
+      dob,
+      address,
+      cellNo,
+      disability,
+      licenseNo,
+      licenseType,
+      issueDate,
+      licenseExpiry,
+      licenseAuthority,
+      companyId,
+      addedBy,
+      addedDate,
+      addedTime,
+      addedPoint,
+      beatId
               ) VALUES (
-                '${data.CNIC}',
-      '${data.DriverName}',
-      '${data.FatherName}',
-      '${data.Age}',
-      '${data.Address}',
-'${data.EyeSight}',
-'${data.Disability}',
-'${data.Company}',
-'${data.CellNo}',
-'${data.LicenseType}',
-'${data.LicenseNo}',
-'${data.IssueAuth}',
-'${data.IssueDate}',
-'${data.LicenseVerify}',
-'${data.DriverPic}',
-'${data.AddedBY}',
-'${data.AddedON}',
-'${data.LicenseExpiry}',
-'${data.Status}',
-'${data.KM}',
-'${data.Side}',
-'${data.EditedBy}',
-'${data.EditedOn}',
-'${data.EditedLat}',
-'${data.EditedLon}',
-'${data.BanReason}',
-'${data.AddedZone}',
-'${data.AddedSector}',
-'${data.AddedBeat}' 
+                '${data.cnic}',
+                '${data.driverName}',
+                '${data.fatherName}',
+                '${data.dob}',
+                '${data.address}',
+                '${data.cellNo}',
+                '${data.disability}',
+                '${data.licenseNo}',
+                '${data.licenseType}',
+                '${data.issueDate}',
+                '${data.licenseExpiry}',
+                '${data.licenseAuthority}',
+                '${data.companyId}',
+                '${data.addedBy}',
+                '${data.addedDate}',
+                '${data.addedTime}',
+                '${data.addedPoint}',
+                '${data.beatId}'
 )`
   
     db.query(qry, (err, result) => {
@@ -108,25 +86,26 @@ router.post("/addDriver", (req, res) => {
 router.patch('/updateDriver/:cnic',(req, res) => {
   const cnic = req.params.cnic
   const data = req.body;
-  
-  // SQL query to insert the data into the database
-  const qry = `UPDATE DriverInfo set 
-  DriverName ='${data.DriverName}',
-  FatherName ='${data.FatherName}',
-  Age ='${data.Age}',
-  Address = '${data.Address}',
-  EyeSight = '${data.EyeSight}',
-  Disability = '${data.Disability}',
-  Company = '${data.Company}',
-  CellNo = '${data.CellNo}',
-  LicenseType = '${data.LicenseType}',
-  LicenseNo = '${data.LicenseNo}',
-  IssueAuth = '${data.IssueAuth}',
-  IssueDate = '${data.IssueDate}',
-  LicenseVerify = '${data.LicenseVerify}',
-  LicenseExpiry = '${data.LicenseExpiry}' 
+  // SQL query to update the data into the database
+  const qry = `UPDATE psvDriver set 
+            driverName ='${data.driverName}',
+            fatherName ='${data.fatherName}',
+            dob ='${data.dob}',
+            address ='${data.address}',
+            cellNo ='${data.cellNo}',
+            disability ='${data.disability}',
+            licenseNo ='${data.licenseNo}',
+            licenseType ='${data.licenseType}',
+            issueDate ='${data.issueDate}',
+            licenseExpiry ='${data.licenseExpiry}',
+            licenseAuthority ='${data.licenseAuthority}',
+            companyId ='${data.companyId}',
+            editedBy ='${data.editedBy}',
+            editedDate ='${data.editedDate}',
+            editedTime ='${data.editedTime}',
+            beatId ='${data.beatId}'
 
-  where CNIC =  '${cnic}'`
+  where cnic =  '${cnic}'`
 
   db.query(qry, (err, result) => {
     if (err) {
@@ -142,8 +121,3 @@ router.patch('/updateDriver/:cnic',(req, res) => {
 
 module.exports = router
 
-
-
-  IssueDate = '${data.IssueAuth}',
-  LicenseVerify = '${data.LicenseVerify}',
-  LicenseExpiry = '${data.LicenseExpiry}' 
