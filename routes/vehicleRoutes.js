@@ -20,9 +20,10 @@ router.get("/getPsv/:pre/:no/:model", async (req, res) => {
 
 router.post("/addPsv", (req, res) => {
   const data = req.body;
-
+ 
   // SQL query to insert the data into the database
   const qry = `insert into psvVehicles (
+        psvNo,
         vehicleType,
         prefixRegNo,
         vehicleModel,
@@ -37,9 +38,13 @@ router.post("/addPsv", (req, res) => {
         exitGate,
         manufactureYear,
         companyName,
-        formOneStatus
+        formOneStatus,
+        addedDate,
+        addedby,
+        addedPoint
         )
         values (
+                '${data.prefixRegNo + data.vehicleModel + data.regNo}',
                 '${data.vehicleType}',
                 '${data.prefixRegNo}',
                 '${data.vehicleModel}',
@@ -54,9 +59,12 @@ router.post("/addPsv", (req, res) => {
                 '${data.exitGate}',
                 '${data.manufactureYear}',
                 '${data.companyName}',
-                '${data.formOneStatus}'
-)` 
-db.query(qry, (err, result) => {
+                '${data.formOneStatus}',
+                '${data.addedDate}',
+                '${data.addedBy}',
+                '${data.addedPoint}'
+)`;
+  db.query(qry, (err, result) => {
     if (err) {
       console.log(err);
       res.sendStatus(500); // Internal Server Error
@@ -67,10 +75,112 @@ db.query(qry, (err, result) => {
   });
 });
 
-//------------------------------add documents 
+//------------------------------add/update documents form
 
+router.patch("/updatePsvDocs/:psvNo", (req, res) => {
+  const psvNo = req.params.psvNo;
+  const data = req.body;
+  // SQL query to update the data into the database
+  const qry = `UPDATE psvVehicles set 
+          routePermitNo = '${data.routePermitNo}',
+          issueAuthority ='${data.issueAuthority}',
+          routeExpiryDate = '${data.routeExpiryDate}',
+          routeType = '${data.routeType}',
+          routeFrom = '${data.routeFrom}',
+          routeTo = '${data.routeTo}',
+          routeVia = '${data.routeVia}',
+          fitnessNo = '${data.fitnessNo}',
+          fitnessExpiryDate = '${data.fitnessExpiryDate}',
+          fitnessAuthority = '${data.fitnessAuthority}',
+          formTwoStatus = '${data.formTwoStatus}',
+          editedOn = '${data.editedOn}',
+          editedBy = '${data.editedBy}',
+          editedPoint = '${data.editedPoint}'
+  where psvNo =  '${psvNo}'`;
 
+  db.query(qry, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500); // Internal Server Error
+    } else {
+      console.log("Data Updated successfully");
+      res.sendStatus(200); // OK
+    }
+  });
+});
+
+//------------------------------add/update ROUTE/FITNESS form
+
+router.patch("/updatePsvRF/:psvNo", (req, res) => {
+  const psvNo = req.params.psvNo;
+  const data = req.body;
+  // SQL query to update the data into the database
+  const qry = `UPDATE psvVehicles set 
+  tyreCompany = '${data.tyreCompany }',
+  tyreManDate = '${data.tyreManDate}',
+  tyreExpiry = '${data.tyreExpiry}',
+  tyreChkDate = '${data.tyreChkDate}',
+  tyreCondition = '${data.tyreCondition}',
+  tyreTread = '${data.tyreTread}',
+  tyreRemarks = '${data.tyreRemarks  }',
+  headLights = '${data.headLights }',
+  backLigths = '${data.backLigths }',
+  hazardLights = '${data.hazardLights }',
+  fogLights = '${data.fogLights }',
+  emergencyLights = '${data.emergencyLights }',
+  formThreeStatus = '${data.formThreeStatus }',
+  editedOn = '${data.editedOn}',
+  editedBy = '${data.editedBy}',
+  editedPoint = '${data.editedPoint}'
+  
+  where psvNo =  '${psvNo}'`;
+
+  db.query(qry, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500); // Internal Server Error
+    } else {
+      console.log("Data Updated successfully");
+      res.sendStatus(200); // OK
+    }
+  });
+});
+
+//------------------------------add/update ROUTE/FITNESS form
+
+router.patch("/updatePsvOthers/:psvNo", (req, res) => {
+  const psvNo = req.params.psvNo;
+  const data = req.body;
+  // SQL query to update the data into the database
+  const qry = `UPDATE psvVehicles set 
+  regPlates ='${data.regPlates}',
+	sideMirror ='${data.sideMirror}',
+	frontWippers ='${data.frontWippers}',
+	fireExt ='${data.fireExt}',
+	fireExpiry ='${data.fireExpiry}',
+	firstAidBox ='${data.firstAidBox}',
+	zeroSeat ='${data.zeroSeat}',
+	cones ='${data.cones}',
+	formFourStatus ='${data.formFourStatus}',
+  editedOn = '${data.editedOn}',
+  editedBy = '${data.editedBy}',
+  editedPoint = '${data.editedPoint}'
+
+  where psvNo =  '${psvNo}'`;
+  db.query(qry, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500); // Internal Server Error
+    } else {
+      console.log("Data Updated successfully");
+      res.sendStatus(200); // OK
+    }
+  });
+});
 
 module.exports = router;
+
+
+
 
 
