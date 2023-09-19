@@ -3,13 +3,13 @@ const db = require("../config/db");
 const router = express.Router();
 
 //get specific driver based on cnic
-router.get("/getPsv/:pre/:no/:model", async (req, res) => {
+router.get("/getPsv/:pre/:model/:no", async (req, res) => {
   const psvPre = req.params.pre;
-  const psvNo = req.params.no;
   const psvModel = req.params.model;
+  const psvNo = req.params.no;
 
   const result = await db.query(
-    `select * from  psvVehicles  where prefixRegNo = '${psvPre}' and regNo = '${psvNo}' and vehicleModel = ${psvModel} `
+    `select * from  psvVehicles  where psvNo = '${psvPre+psvModel+psvNo}'`
   );
 
   if (result) {
