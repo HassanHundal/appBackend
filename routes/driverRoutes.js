@@ -3,14 +3,16 @@ const db = require('../config/db')
 const router = express.Router();
 
 //get specific driver based on cnic
-router.get('/getDriver/:Dvr',async(req,res)=>{
-   const dvr = req.params.Dvr
-    const result = await db.query(`select * from psvDriver where CNIC = '${dvr}' `)
+router.get('/getDriver/:cnic',async(req,res)=>{
+   const dvrCnic = req.params.cnic
+    const result = await db.query(`select * from psvDriver where cnic = '${dvrCnic}' `)
     if(result){
 
         res.status(200).json(result.recordset)
     }
 } );
+
+//--------------------------get specifivc driver
 
 router.get('/getallDriver',async(req,res)=>{
    
@@ -48,7 +50,7 @@ router.post("/addDriver", (req, res) => {
       addedDate,
       addedTime,
       addedPoint
-     
+
               ) VALUES (
                 '${data.cnic}',
                 '${data.driverName}',
@@ -64,7 +66,7 @@ router.post("/addDriver", (req, res) => {
                 '${data.licenseAuthority}',
                 '${data.companyId}',
                 '${data.addedBy}',
-                 '${data.addedDate}',
+                '${data.addedDate}',
                 '${data.addedTime}',
                 '${data.addedPoint}'
                

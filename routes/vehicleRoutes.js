@@ -75,38 +75,40 @@ router.post("/addPsv", (req, res) => {
   });
 });
 //---------------------- update psv info
-//get specific driver based on cnic
-router.get("/updatePsv/:pre/:model/:no", async (req, res) => {
-  const psvPre = req.params.pre;
-  const psvModel = req.params.model;
-  const psvNo = req.params.no;
-
-  const result = await db.query(
-    `update psvVehicles set 
+router.patch("/updatePsv/:psvNo", (req, res) => {
+  const psvNo = req.params.psvNo;
+  const data = req.body;
+  // SQL query to update the data into the database
+  const qry = `UPDATE psvVehicles set 
+          vehicleType = '${data.vehicleType}',
+          chasisNo = '${data.chasisNo}',
+          engineNo = '${data.engineNo}',
+          vehicleMake = '${data.vehicleMake}',
+          vehicleColor = '${data.vehicleColor}',
+          acStatus = '${data.acStatus}',
+          seatingCap = '${data.seatingCap}',
+          trackerStatus = '${data.trackerStatus}',
+          exitGate = '${data.exitGate}',
+          manufactureYear = '${data.manufactureYear}',
+          companyName = '${data.companyName}',
+          formOneStatus = '${data.formOneStatus}',
+          editedOn = '${data.editedOn}',
+          editedBy = '${data.editedBy}',
+          editedPoint = '${data.editedPoint}'
   
-        vehicleType = '${data.vehicleType}',
-        chasisNo = '${data.chasisNo}',
-        engineNo = '${data.engineNo}',
-        vehicleMake = '${data.vehicleMake}',
-        vehicleColor = '${data.vehicleColor}',
-        acStatus = '${data.acStatus}',
-        seatingCap = '${data.seatingCap}',
-        trackerStatus = '${data.trackerStatus}',
-        exitGate = '${data.exitGate}',
-        manufactureYear = '${data.manufactureYear}',
-        companyName = '${data.companyName}',
-        formOneStatus = '${data.formOneStatus}',
-        editedOn = '${data.editedOn}',
-        editedBy = '${data.editedBy}',
-        editedPoint = '${data.editedPoint}'
-    
-    where psvNo = '${psvPre + psvModel + psvNo}'`
-  );
+  where psvNo =  '${psvNo}'`;
 
-  if (result) {
-    res.status(200).json(result.recordset);
-  }
+  db.query(qry, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.sendStatus(500); // Internal Server Error
+    } else {
+      console.log("Data Updated successfully");
+      res.sendStatus(200); // OK
+    }
+  });
 });
+    
 //------------------------------add/update documents form
 
 router.patch("/updatePsvDocs/:psvNo", (req, res) => {
