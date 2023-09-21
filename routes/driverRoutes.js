@@ -26,6 +26,8 @@ router.get('/getallDriver',async(req,res)=>{
 
 router.post("/addDriver", (req, res) => {
     const data = req.body;
+    const date = new Date().toLocaleDateString().split(",")[0]
+    
   
     // SQL query to insert the data into the database
     const qry = `INSERT INTO psvDriver (
@@ -45,8 +47,8 @@ router.post("/addDriver", (req, res) => {
       addedBy,
       addedDate,
       addedTime,
-      addedPoint,
-      beatId
+      addedPoint
+     
               ) VALUES (
                 '${data.cnic}',
                 '${data.driverName}',
@@ -62,10 +64,10 @@ router.post("/addDriver", (req, res) => {
                 '${data.licenseAuthority}',
                 '${data.companyId}',
                 '${data.addedBy}',
-                '${data.addedDate}',
+                 '${data.addedDate}',
                 '${data.addedTime}',
-                '${data.addedPoint}',
-                '${data.beatId}'
+                '${data.addedPoint}'
+               
 )`
   
     db.query(qry, (err, result) => {
@@ -102,8 +104,8 @@ router.patch('/updateDriver/:cnic',(req, res) => {
             companyId ='${data.companyId}',
             editedBy ='${data.editedBy}',
             editedDate ='${data.editedDate}',
-            editedTime ='${data.editedTime}',
-            beatId ='${data.beatId}'
+            editedTime ='${data.editedTime}'
+          
 
   where cnic =  '${cnic}'`
 
