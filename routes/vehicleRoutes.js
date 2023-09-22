@@ -40,6 +40,7 @@ router.post("/addPsv", (req, res) => {
         companyName,
         formOneStatus,
         addedDate,
+        addedTime,
         addedby,
         addedPoint
         )
@@ -61,6 +62,7 @@ router.post("/addPsv", (req, res) => {
                 '${data.companyName}',
                 '${data.formOneStatus}',
                 '${data.addedDate}',
+                '${data.addedTime}',
                 '${data.addedBy}',
                 '${data.addedPoint}'
 )`;
@@ -93,6 +95,7 @@ router.patch("/updatePsv/:psvNo", (req, res) => {
           companyName = '${data.companyName}',
           formOneStatus = '${data.formOneStatus}',
           editedOn = '${data.editedOn}',
+          editedTime = '${data.editedTime}',
           editedBy = '${data.editedBy}',
           editedPoint = '${data.editedPoint}'
   
@@ -111,6 +114,7 @@ router.patch("/updatePsv/:psvNo", (req, res) => {
     
 //------------------------------add/update documents form
 
+
 router.patch("/updatePsvDocs/:psvNo", (req, res) => {
   const psvNo = req.params.psvNo;
   const data = req.body;
@@ -128,6 +132,7 @@ router.patch("/updatePsvDocs/:psvNo", (req, res) => {
           fitnessAuthority = '${data.fitnessAuthority}',
           formTwoStatus = '${data.formTwoStatus}',
           editedOn = '${data.editedOn}',
+          editedTime = '${data.editedTime}',
           editedBy = '${data.editedBy}',
           editedPoint = '${data.editedPoint}'
   where psvNo =  '${psvNo}'`;
@@ -145,7 +150,7 @@ router.patch("/updatePsvDocs/:psvNo", (req, res) => {
 
 //------------------------------add/update ROUTE/FITNESS form
 
-router.patch("/updatePsvRF/:psvNo", (req, res) => {
+router.patch("/updatePsvCondition/:psvNo", (req, res) => {
   const psvNo = req.params.psvNo;
   const data = req.body;
   // SQL query to update the data into the database
@@ -165,6 +170,7 @@ router.patch("/updatePsvRF/:psvNo", (req, res) => {
   formThreeStatus = '${data.formThreeStatus }',
   editedOn = '${data.editedOn}',
   editedBy = '${data.editedBy}',
+  editedTime = '${data.editedTime}',
   editedPoint = '${data.editedPoint}'
   
   where psvNo =  '${psvNo}'`;
@@ -198,6 +204,7 @@ router.patch("/updatePsvOthers/:psvNo", (req, res) => {
 	formFourStatus ='${data.formFourStatus}',
   editedOn = '${data.editedOn}',
   editedBy = '${data.editedBy}',
+  editedTime = '${data.editedTime}',
   editedPoint = '${data.editedPoint}'
 
   where psvNo =  '${psvNo}'`;
