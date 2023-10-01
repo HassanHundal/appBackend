@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const userRoutes = require('./routes/userRoutes')
 const driverRoutes = require('./routes/driverRoutes')
 const inspectionRoutes =require('./routes/inspectionRoutes')
+const companyRoutes = require('./routes/companyRoutes')
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/users',userRoutes )
 app.use('/dvr',driverRoutes )
 app.use('/psv',vehicleRoutes )
 app.use('/rpt',inspectionRoutes )
+app.use('/cmp',companyRoutes )
 
 app.get("/",(req,res)=>{
     res.send("Welcome to PSVs Managment Information System  APIs  ")

@@ -46,6 +46,7 @@ router.post("/addDriver", (req, res) => {
       licenseExpiry,
       licenseAuthority,
       companyId,
+      subCompany,
       addedBy,
       addedDate,
       addedTime,
@@ -65,6 +66,7 @@ router.post("/addDriver", (req, res) => {
                 '${data.licenseExpiry}',
                 '${data.licenseAuthority}',
                 '${data.companyId}',
+                '${data.subCompany}',
                 '${data.addedBy}',
                 '${data.addedDate}',
                 '${data.addedTime}',
@@ -104,6 +106,7 @@ router.patch('/updateDriver/:cnic',(req, res) => {
             licenseExpiry ='${data.licenseExpiry}',
             licenseAuthority ='${data.licenseAuthority}',
             companyId ='${data.companyId}',
+            subCompany ='${data.subCompany}',
             editedBy ='${data.editedBy}',
             editedDate ='${data.editedDate}',
             editedTime ='${data.editedTime}'
