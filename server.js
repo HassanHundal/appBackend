@@ -8,6 +8,8 @@ const userRoutes = require('./routes/userRoutes')
 const driverRoutes = require('./routes/driverRoutes')
 const inspectionRoutes =require('./routes/inspectionRoutes')
 const companyRoutes = require('./routes/companyRoutes')
+const officeRoutes = require('./routes/officeRoutes')
+const userfeedBackRoutes = require('./routes/userfeedBackRoutes')
 
 const app = express();
 
@@ -31,6 +33,8 @@ app.use('/dvr',driverRoutes )
 app.use('/psv',vehicleRoutes )
 app.use('/rpt',inspectionRoutes )
 app.use('/cmp',companyRoutes )
+app.use('/ofc',officeRoutes )
+app.use('/fbk',userfeedBackRoutes)
 
 app.get("/",(req,res)=>{
     res.send("Welcome to PSVs Managment Information System  APIs  ")
